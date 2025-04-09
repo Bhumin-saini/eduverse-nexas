@@ -71,6 +71,6 @@ eduverse-nexus-platform/
 - `tailwind.config.ts` - Tailwind CSS configuration
 - `postcss.config.js` - PostCSS configuration
 
-## 📝 License
+## Contract Details:0x1ffc22110bb79293f01102dd74785700992599b3
+![image](https://github.com/user-attachments/assets/a908e9ed-6abb-4a38-90ba-36cae518ada0)
 
-This project is licensed under the MIT License - see the LICENSE file for details.
