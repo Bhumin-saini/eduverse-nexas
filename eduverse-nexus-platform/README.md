@@ -1,73 +1,76 @@
-# Welcome to your Lovable project
+# Eduverse Nexus Platform
 
-## Project info
+A modern educational platform built with React, TypeScript, and Vite.
 
-**URL**: https://lovable.dev/projects/5b4ed9ef-1c37-4c13-8f49-93d181fdcea3
+## 🚀 Getting Started
 
-## How can I edit this code?
+### Prerequisites
 
-There are several ways of editing your application.
+- Node.js (v18 or higher)
+- npm (v9 or higher)
 
-**Use Lovable**
+### Installation
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5b4ed9ef-1c37-4c13-8f49-93d181fdcea3) and start prompting.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd eduverse-nexus-platform
+```
 
-Changes made via Lovable will be committed automatically to this repo.
+2. Install dependencies:
+```bash
+npm install
+```
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at [http://localhost:8080](http://localhost:8080)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🛠️ Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start the development server
+- `npm run build` - Build the application for production
+- `npm run build:dev` - Build the application for development
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview the production build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📦 Technology Stack
 
-## What technologies are used for this project?
+- **Frontend Framework**: React 18
+- **Build Tool**: Vite
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **State Management**: React Query
+- **Form Handling**: React Hook Form
+- **Validation**: Zod
+- **Routing**: React Router DOM
+- **Icons**: Lucide React
+- **Date Handling**: date-fns
+- **Charts**: Recharts
 
-This project is built with:
+## 📁 Project Structure
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```
+eduverse-nexus-platform/
+├── src/              # Source files
+├── public/           # Static assets
+├── components/       # Reusable components
+├── pages/           # Page components
+├── styles/          # Global styles
+└── utils/           # Utility functions
+```
 
-## How can I deploy this project?
+## 🔧 Configuration
 
-Simply open [Lovable](https://lovable.dev/projects/5b4ed9ef-1c37-4c13-8f49-93d181fdcea3) and click on Share -> Publish.
+- `vite.config.ts` - Vite configuration
+- `tsconfig.json` - TypeScript configuration
+- `tailwind.config.ts` - Tailwind CSS configuration
+- `postcss.config.js` - PostCSS configuration
 
-## Can I connect a custom domain to my Lovable project?
+## 📝 License
 
-Yes it is!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.

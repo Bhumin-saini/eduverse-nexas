@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,7 +13,7 @@ import DAOGovernance from "./pages/DAOGovernance";
 import Alumni from "./pages/Alumni";
 import About from "./pages/About";
 import { TokenProvider } from "./context/TokenContext";
-import TestingPanel from "./components/TestingPanel";
+import TestingPanel from "./dev/TestingPanel";
 
 // Create a query client for React Query
 const queryClient = new QueryClient();
