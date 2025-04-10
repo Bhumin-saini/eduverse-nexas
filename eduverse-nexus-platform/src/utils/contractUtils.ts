@@ -1,4 +1,3 @@
-
 import { ethers } from 'ethers';
 
 // ABI for the EduPointsToken contract - this would normally be generated from the compiled contract
@@ -10,13 +9,17 @@ const EduPointsABI = [
   "function symbol() view returns (string)",
   "function getStudentSummary(address studentAddress) view returns (bool isRegistered, uint256 totalPointsEarned, uint256 totalPointsSpent, uint256 currentBalance, uint256 stakedPoints, uint256 achievementCount)",
   "function getStudentAchievement(address studentAddress, uint256 achievementId) view returns (uint8 achievementType, uint256 pointsAwarded, string memory achievementName, uint256 timestamp)",
+  "function isEmailRegistered(string memory email) view returns (bool)",
+  "function isStudentIdRegistered(string memory studentId) view returns (bool)",
   
   // Write functions
+  "function registerStudent(string memory name, string memory email, string memory studentId, string memory department)",
   "function redeemOffer(uint256 offerId)",
   "function stakePoints(uint256 amount, uint256 durationMonths)",
   "function unstakePoints()",
   
   // Events
+  "event StudentRegistered(address indexed studentAddress, string name, string studentId, string department, uint256 timestamp)",
   "event PointsEarned(address indexed student, uint256 amount, string achievementName, uint8 achievementType)",
   "event PointsRedeemed(address indexed student, uint256 amount, string offerName)",
   "event PointsStaked(address indexed student, uint256 amount, uint256 duration)",
@@ -178,5 +181,67 @@ export const checkNetwork = async () => {
   } catch (error) {
     console.error("Error checking network:", error);
     return false;
+  }
+};
+
+/**
+ * Check if an email is already registered
+ */
+export const isEmailRegistered = async (email: string) => {
+  try {
+    const contract = await getEduPointsContract();
+    return await contract.isEmailRegistered(email);
+  } catch (error) {
+    console.error("Error checking email registration:", error);
+    throw error;
+  }
+};
+
+/**
+ * Check if a student ID is already registered
+ */
+export const isStudentIdRegistered = async (studentId: string) => {
+  try {
+    const contract = await getEduPointsContract();
+    return await contract.isStudentIdRegistered(studentId);
+  } catch (error) {
+    console.error("Error checking student ID registration:", error);
+    throw error;
+  }
+};
+
+/**
+ * Register a student on the blockchain
+ */
+export const registerStudentOnChain = async (
+  name: string,
+  email: string, 
+  studentId: string,
+  department: string
+) => {
+  try {
+    // First, check if the email or student ID is already registered
+    const emailRegistered = await isEmailRegistered(email);
+    if (emailRegistered) {
+      throw new Error("This email is already registered");
+    }
+    
+    const studentIdRegistered = await isStudentIdRegistered(studentId);
+    if (studentIdRegistered) {
+      throw new Error("This student ID is already registered");
+    }
+    
+    // Proceed with registration
+    const contract = await getEduPointsContract();
+    const tx = await contract.registerStudent(name, email, studentId, department);
+    await tx.wait();
+    
+    return {
+      success: true,
+      transaction: tx.hash
+    };
+  } catch (error: any) {
+    console.error("Error registering student on chain:", error);
+    throw new Error(error.message || "Failed to register student on blockchain");
   }
 };

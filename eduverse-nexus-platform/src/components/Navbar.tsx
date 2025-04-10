@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
@@ -43,7 +42,7 @@ const Navbar = () => {
           </div>
           
           <div className="hidden md:block">
-            <WalletConnect />
+            <WalletConnect variant="dark" />
           </div>
           
           {/* Mobile menu button */}
@@ -71,7 +70,7 @@ const Navbar = () => {
             <Link to="/dao" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-eduverse-primary">DAO Governance</Link>
             <Link to="/alumni" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-eduverse-primary">Alumni Network</Link>
             <div className="mt-4">
-              <WalletConnect />
+              <WalletConnect variant="dark" />
             </div>
           </div>
         </div>

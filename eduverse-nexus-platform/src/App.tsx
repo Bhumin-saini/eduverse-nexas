@@ -12,6 +12,9 @@ import Learning from "./pages/features/Learning";
 import DAOGovernance from "./pages/DAOGovernance";
 import Alumni from "./pages/Alumni";
 import About from "./pages/About";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Rewards from "./pages/features/Rewards";
 import { TokenProvider } from "./context/TokenContext";
 import TestingPanel from "./dev/TestingPanel";
 
@@ -38,6 +41,9 @@ const App = () => {
               <Route path="/features/learning" element={<Learning />} />
               <Route path="/dao" element={<DAOGovernance />} />
               <Route path="/alumni" element={<Alumni />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/rewards" element={<Rewards />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

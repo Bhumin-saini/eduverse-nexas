@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card } from "@/components/ui/card";
 import { BookOpen, Users, Award, Clock, Coffee, ShoppingBag } from 'lucide-react';
 import WalletConnect from './WalletConnect';

@@ -1,7 +1,6 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button } from "@/components/ui/button";
-import { Wallet, LoaderCircle, ExternalLink, Info } from 'lucide-react';
+import { Wallet, LoaderCircle, ExternalLink, LogOut } from 'lucide-react';
 import { useToken } from '../context/TokenContext';
 import {
   Tooltip,
@@ -15,17 +14,25 @@ interface WindowWithEthereum extends Window {
   ethereum?: any;
 }
 
-const WalletConnect = () => {
-  const { isConnected, walletAddress, isLoading, connectWallet, error } = useToken();
+type WalletConnectProps = {
+  variant?: 'light' | 'dark';
+};
+
+const WalletConnect: React.FC<WalletConnectProps> = ({ variant = 'light' }) => {
+  const { isConnected, isLoading, connectWallet, disconnectWallet, studentSummary } = useToken();
 
   const truncateAddress = (address: string) => {
     return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
   };
 
   const handleConnectClick = () => {
-    // Add a console log to help debug
     console.log("Connect button clicked, attempting to connect wallet...");
     connectWallet();
+  };
+
+  const handleDisconnectClick = () => {
+    console.log("Disconnect button clicked, disconnecting wallet...");
+    disconnectWallet();
   };
 
   const handleInstallMetaMask = () => {
@@ -36,70 +43,71 @@ const WalletConnect = () => {
   const isWalletAvailable = typeof window !== 'undefined' && 
     Boolean((window as WindowWithEthereum).ethereum);
 
-  // Log connection status for debugging
-  useEffect(() => {
-    console.log("WalletConnect component state:", {
-      isConnected,
-      walletAddress,
-      isLoading,
-      error,
-      isWalletAvailable
-    });
-  }, [isConnected, walletAddress, isLoading, error, isWalletAvailable]);
+  const isDark = variant === 'dark';
 
   return (
     <div>
       {!isConnected ? (
         <>
           <Button 
-            className="bg-white text-eduverse-primary hover:bg-blue-50 flex items-center gap-2"
+            className={`${isDark 
+              ? 'bg-eduverse-primary text-white hover:bg-eduverse-primary/90' 
+              : 'bg-white text-eduverse-primary hover:bg-blue-50'
+            } flex items-center gap-2 shadow-sm`}
             onClick={handleConnectClick}
             disabled={isLoading || !isWalletAvailable}
           >
             {isLoading ? (
-              <LoaderCircle className="h-5 w-5 animate-spin" />
+              <LoaderCircle className={`h-5 w-5 animate-spin ${isDark ? 'text-white' : 'text-eduverse-primary'}`} />
             ) : (
-              <Wallet className="h-5 w-5" />
+              <Wallet className={`h-5 w-5 ${isDark ? 'text-white' : 'text-eduverse-primary'}`} />
             )}
-            {isLoading ? 'Connecting...' : 'Connect Wallet to Access Tokens'}
+            {isLoading ? 'Connecting...' : 'Connect Wallet'}
           </Button>
           
           {!isWalletAvailable && (
             <Button 
               variant="link"
-              className="mt-2 flex items-center"
+              className={`mt-2 flex items-center ${isDark ? 'text-blue-300 hover:text-blue-200' : 'text-blue-500 hover:text-blue-600'}`}
               onClick={handleInstallMetaMask}
             >
               <ExternalLink className="h-4 w-4 mr-1" />
               Install MetaMask
             </Button>
           )}
-          
-          {error && (
-            <p className="text-sm text-red-500 mt-2">{error}</p>
-          )}
         </>
       ) : (
         <div className="flex items-center gap-2">
           <Button 
-            variant="outline"
-            className="border-2 border-white/30 text-white hover:bg-white/10 flex items-center gap-2"
-            disabled={isLoading}
+            variant={isDark ? "default" : "outline"}
+            className={`flex items-center gap-2 shadow-sm ${
+              isDark 
+                ? 'bg-eduverse-primary/90 text-white hover:bg-eduverse-primary border-0' 
+                : 'border-2 border-white/30 text-white hover:bg-white/10'
+            }`}
           >
-            <Wallet className="h-5 w-5" />
-            {walletAddress ? truncateAddress(walletAddress) : 'Connected'}
+            <Wallet className="h-5 w-5 text-green-400" />
+            {studentSummary?.walletAddress ? truncateAddress(studentSummary.walletAddress) : 'Connected'}
           </Button>
           
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" className="p-0 h-8 w-8">
-                  <Info className="h-4 w-4 text-white/70" />
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className={`p-1 h-8 w-8 ${
+                    isDark 
+                      ? 'bg-red-500/20 hover:bg-red-500/30' 
+                      : 'bg-white/10 hover:bg-white/20'
+                  }`}
+                  onClick={handleDisconnectClick}
+                >
+                  <LogOut className={`h-4 w-4 ${isDark ? 'text-red-300' : 'text-red-400'}`} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent className="max-w-xs" side="bottom">
-                <p className="text-xs">Wallet connected to address {walletAddress}</p>
-                <p className="text-xs text-muted-foreground">Click to view debugging info in console</p>
+              <TooltipContent side="bottom">
+                <p className="text-xs">Disconnect wallet</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
